@@ -95,3 +95,11 @@ p{
 .select-time{
     color: rgb(255, 4, 4);
 }
+
+
+.button-container {
+    text-align: center; /* Centers the button horizontally */
+    margin-top: 20px;
+}
+
+
