@@ -1,0 +1,97 @@
+p{
+    font-size: 7vw;
+    color: blue;
+    text-align:center;
+}
+/* dropdown */
+.labels {
+    display: flex;
+    justify-content: space-between;
+    width: 260px; /* Adjust width as needed */
+    margin-bottom: 10px; /* Space between labels and dropdowns */
+    margin-left: 13%;
+}
+
+.dropdowns {
+    display: flex;
+    justify-content: space-between;
+    width: 300px; /* Match the width of the label row */
+    margin-left: 10%;
+}
+
+
+.dropdowns select {
+    width: 90px; /* Adjust the width of each dropdown */
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+}
+
+
+/* dropdown */
+.labels {
+    display: flex;
+    justify-content: space-between;
+    width: 260px; /* Adjust width as needed */
+    margin-bottom: 10px; /* Space between labels and dropdowns */
+    margin-left: 13%;
+}
+
+.dropdowns {
+    display: flex;
+    justify-content: space-between;
+    width: 300px; /* Match the width of the label row */
+    margin-left: 10%;
+}
+
+.dropdowns select {
+    width: 90px; /* Adjust the width of each dropdown */
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+    background-color: white; /* Background color for dropdown */
+    color: black; /* Default text color */
+    border: 1px solid #ccc; /* Border styling */
+    border-radius: 5px; /* Slightly rounded corners */
+}
+
+/* Change background color when hovering over dropdown */
+.dropdowns select:hover {
+    background-color: #f0f0f0; /* Light gray background on hover */
+    border-color: blue; /* Change border color on hover */
+}
+
+/* Change the selected option's text color when dropdown is focused */
+.dropdowns select:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: red; /* Change border color when focused */
+}
+
+/* result */
+.result {
+    margin-top: 10%;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.select-time {
+    color: rgb(255, 4, 4);
+}
+
+
+
+
+
+/* result */
+
+.result {
+    margin-top: 10%;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.select-time{
+    color: rgb(255, 4, 4);
+}

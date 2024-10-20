@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="page1.css">
+    <script src="page1.js" defer></script>
+    <title>Jackson</title>
+</head>
+<body>
+    <h1>Hello</h1>
+    <h2>hello</h2>
+    <h3>hello</h3>
+<p>How long do your think the banana will expire?</p>
+<p >How long do your think the banana will expire?</p>
+    <!-- Label Row -->
+    <div class="labels">
+        <span>Day</span>
+        <span>Hour</span>
+        <span>Minute</span>
+    </div>
+
+    <!-- Dropdown Row -->
+    <div class="dropdowns">
+       
+        <select id="day" name="day" onchange="showSelectedTime()">
+            <option value="">Day</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+        </select>
+   
+        <select id="hour" name="hour" onchange="showSelectedTime()">
+            <option value="">Hour</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="23">23</option>
+        </select>
+
+        <select id="minute" name="minute" onchange="showSelectedTime()">
+            <option value="">Minute</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="59">59</option>
+        </select>
+    </div>
+
+     <!-- Area to display the selected time -->
+     <div class="result">
+        Selected Time: <br>
+        <span class="select-time" id="selectedTime">(Please select a time)</span>
+    </div>
+</body>
+</html>
