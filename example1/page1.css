@@ -1,3 +1,14 @@
+body{
+background-color: rgb(255, 240, 221) ;
+background-image: url('banana.jpeg');
+}
+
+img{
+    width: 200px;
+    height: 200px;
+    margin-left: 40%;
+    margin-top: 10%;
+}
 p{
     font-size: 7vw;
     color: blue;

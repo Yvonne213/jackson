@@ -17,3 +17,8 @@ function showSelectedTime() {
     // Display the result in the format of "hours:minutes"
     document.getElementById("selectedTime").innerText = totalHours + ":" + (minuteValue < 10 ? "0" + minuteValue : minuteValue);
 }
+
+document.getElementById('myButton').addEventListener('click', function() {
+    window.location.href = 'page2.html';
+});
+
