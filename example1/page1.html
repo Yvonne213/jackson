@@ -9,11 +9,16 @@
     <title>Jackson</title>
 </head>
 <body>
-    <h1>Hello</h1>
-    <h2>hello</h2>
-    <h3>hello</h3>
-<p>How long do your think the banana will expire?</p>
-<p >How long do your think the banana will expire?</p>
+    
+    <div class="head">
+        <img src="banana.jpeg" alt="Trulli">
+        <div class="text">
+            <h1>The Banana</h1>
+            <p>How long <br>do you think the banana<br> will expire?</p>
+        </div>
+    </div>
+    
+
     <!-- Label Row -->
     <div class="labels">
         <span>Day</span>
@@ -23,7 +28,7 @@
 
     <!-- Dropdown Row -->
     <div class="dropdowns">
-       
+    
         <select id="day" name="day" onchange="showSelectedTime()">
             <option value="">Day</option>
             <option value="1">1</option>
@@ -57,9 +62,9 @@
         Selected Time: <br>
         <span class="select-time" id="selectedTime">(Please select a time)</span>
     </div>
-    <img src="banana.jpeg" alt="Trulli">
+  
     <div class="button-container">
-        <button id="myButton" onclick="nextPage()">Next</button>
+        <button class="button "id="myButton" onclick="nextPage()">Next</button>
     </div>
 </body>
 </html>

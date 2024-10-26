@@ -1,86 +1,77 @@
 body{
 background-color: rgb(255, 240, 221) ;
-background-image: url('banana.jpeg');
+}
+
+.head{
+    max-width:500px;
+    margin-inline: auto;
 }
 
 img{
-    width: 200px;
-    height: 200px;
-    margin-left: 40%;
-    margin-top: 10%;
+   display:block;
+   max-width: 40%;
+   margin-left: auto;
+   margin-right: auto;
+}
+h1{
+    font-size: 30px;
+    color: darkblue;
+    text-align: center;
 }
 p{
-    font-size: 7vw;
+    font-size: 1.5em;
     color: blue;
     text-align:center;
 }
+
 /* dropdown */
 .labels {
     display: flex;
     justify-content: space-between;
-    width: 260px; /* Adjust width as needed */
+    width: 250px; /* Adjust width as needed */
+    margin-top: 40px;
     margin-bottom: 10px; /* Space between labels and dropdowns */
-    margin-left: 13%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .dropdowns {
     display: flex;
     justify-content: space-between;
     width: 300px; /* Match the width of the label row */
-    margin-left: 10%;
-}
-
-
-.dropdowns select {
-    width: 90px; /* Adjust the width of each dropdown */
-    padding: 5px;
-    font-size: 16px;
-    text-align: center;
-}
-
-
-/* dropdown */
-.labels {
-    display: flex;
-    justify-content: space-between;
-    width: 260px; /* Adjust width as needed */
-    margin-bottom: 10px; /* Space between labels and dropdowns */
-    margin-left: 13%;
-}
-
-.dropdowns {
-    display: flex;
-    justify-content: space-between;
-    width: 300px; /* Match the width of the label row */
-    margin-left: 10%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .dropdowns select {
-    width: 90px; /* Adjust the width of each dropdown */
-    padding: 5px;
+    width: 80px; /* Adjust the width of each dropdown */
+    padding: 8px 10px;
     font-size: 16px;
     text-align: center;
-    background-color: white; /* Background color for dropdown */
+    background-color: rgb(191, 191, 191); /* Background color for dropdown */
     color: black; /* Default text color */
-    border: 1px solid #ccc; /* Border styling */
+    /* border: 1px solid red;  */
+    border:none;
     border-radius: 5px; /* Slightly rounded corners */
 }
 
 /* Change background color when hovering over dropdown */
 .dropdowns select:hover {
-    background-color: #f0f0f0; /* Light gray background on hover */
-    border-color: blue; /* Change border color on hover */
+    background-color: #ffa856; /* Light gray background on hover */
+    /* border-color: blue; */
 }
-
-/* Change the selected option's text color when dropdown is focused */
-.dropdowns select:focus {
-    outline: none; /* Remove default focus outline */
-    border-color: red; /* Change border color when focused */
+.dropdowns select option:checked {
+    background-color: yellow; /* Change background of selected option */
+    color: black; /* Text color of selected option */
+}
+.dropdowns select option {
+    background-color: white; /* Option background */
+    color: blue; /* Option text color */
 }
 
 /* result */
 .result {
-    margin-top: 10%;
+    margin-top: 50px;
     font-size: 18px;
     font-weight: bold;
     text-align: center;
@@ -91,26 +82,14 @@ p{
 }
 
 
-
-
-
-/* result */
-
-.result {
-    margin-top: 10%;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.select-time{
-    color: rgb(255, 4, 4);
-}
-
-
 .button-container {
     text-align: center; /* Centers the button horizontally */
     margin-top: 20px;
 }
 
-
+button{
+    border: none;
+    background-color: rgb(0, 0, 0);
+    color:yellow;
+    padding: 10px 20px;
+}
