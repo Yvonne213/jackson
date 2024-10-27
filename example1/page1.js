@@ -22,7 +22,6 @@ document.getElementById('myButton').addEventListener('click', function() {
 
 
 ///page2
-
    function updateTimeAndDate() {
     const now = new Date();
     const year = now.getFullYear();
@@ -44,8 +43,6 @@ updateTimeAndDate();
 
 
 //countdown logic
-
-
 function getUrlParams() {
     const params = new URLSearchParams(window.location.search);
     return {
@@ -104,3 +101,10 @@ const targetTime = calculateTargetTime(selectedDay, selectedHour, selectedMinute
 
 // Start the countdown and update every second
 setInterval(updateCountdown, 1000);
+
+
+//gotopage 3
+// Function to redirect to page3.html
+function goToPage3() {
+    window.location.href = 'page3.html';
+}

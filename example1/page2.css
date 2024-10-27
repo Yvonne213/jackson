@@ -39,12 +39,15 @@ p{
 
 .countdown{
     background-color: rgb(255, 217, 0);
+    color: crimson;
   font-size: 50px;
   text-align: center;
 padding: 60px;
+border: 15px solid rgb(175, 0, 0);
 }
 
- .page2button {
+
+.page2button {
     text-align: center; /* Centers the button horizontally */
     margin-top: 100px;
 }
