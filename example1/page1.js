@@ -1,3 +1,6 @@
+//for clearing data
+// localStorage.removeItem('timeSelectionHistory');
+
 function showSelectedTime() {
     var day = document.getElementById("day").value;
     var hour = document.getElementById("hour").value;
