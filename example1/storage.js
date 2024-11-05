@@ -29,18 +29,20 @@ function loadSelectionHistory() {
         label.textContent = `Costomer ${index + 1}`; // Label as "Selection 1", "Selection 2", etc.
 
         // Create and style elements for the selection result and timestamp
+        const timestampText = document.createElement("p");
+        timestampText.textContent = `${entry.timestamp}`;
+        timestampText.classList.add("timestamp-text");
+
         const selectionText = document.createElement("p");
-        selectionText.textContent = `Selection: ${entry.selection}`;
+        selectionText.textContent = `${entry.selection}`;
         selectionText.classList.add("selection-text");
 
-        const timestampText = document.createElement("p");
-        timestampText.textContent = `Selected on: ${entry.timestamp}`;
-        timestampText.classList.add("timestamp-text");
 
         // Append label and other elements to the block
         block.appendChild(label);
-        block.appendChild(selectionText);
         block.appendChild(timestampText);
+        block.appendChild(selectionText);
+       
 
         // Add the block to the container
         container.appendChild(block);
