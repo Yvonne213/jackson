@@ -13,6 +13,7 @@ function showSelectedTime() {
     // Display the selected time in the format "X days, Y hours, Z minutes"
     document.getElementById("selectedTime").innerText = `${dayValue} day(s), ${hourValue} hour(s), ${minuteValue} minute(s)`;
 }
+
 function saveSelectionToStorage(day, hour, minute) {
     const timestamp = new Date().toISOString();
     const selection = `${day} days, ${hour} hours, ${minute} minutes`;

@@ -2,7 +2,7 @@
 
 function saveSelectionToStorage(day, hour, minute) {
     const timestamp = new Date().toISOString();
-    const selection = `${day} days, ${hour} hours, ${minute} minutes`;
+    const selection = `${day} days: ${hour} hours: ${minute} minutes`;
     const entry = { timestamp, selection };
 
     let history = JSON.parse(localStorage.getItem('timeSelectionHistory')) || [];

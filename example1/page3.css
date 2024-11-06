@@ -26,18 +26,15 @@ button{
     color:yellow;
     padding: 10px 20px;
 }
-.history-container{
-color:black;
-font-size: 10px;
-text-align: center;
-}
 
 /* clock style */
 /* Style for the history container */
 .history-container {
+text-align: center;
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* Two columns */
     gap: 1rem; /* Space between blocks */
+    padding:10px;
 }
 
 /* Ensure each block acts as a positioning context for its label */
@@ -53,7 +50,7 @@ text-align: center;
 
 /* Style for selection text */
 .selection-text {
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color:white;
   
