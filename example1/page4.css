@@ -7,51 +7,44 @@ html, body {
 }
 .head{
     max-width:500px;
-   
+    text-align: center;
 }
 
 img{
     display:block;
     max-width: 40%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
  }
 
  .video-container {
     width: 100%;
-    height: 100%;
-    display: flex;
+    height: calc(100vh - 400px); /* Leave space for the heading */
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  
+    
 }
 
- body {
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-}
+  #camera-feed {
+    /* transform: scaleX(-1); */
+    /* Flips the video horizontally */
 
+    /* transform: scaleY(-1);  */
+    /* Flips the video vertically */
 
-  .camera-feed {
-  
-    width: 100%; /* Fit to container width */
+    /* transform: rotate(90deg);  */
+    /* Rotates the video 90 degrees clockwise */
+    width: 97%; /* Fit to container width */
     height: 100%; /* Take up all available height */
     max-width: 800px; /* Optional: Restrict maximum width */
-    max-height: 450px; /* Optional: Restrict maximum height */
+    max-height: 400px; /* Optional: Restrict maximum height */
     border: 0; /* No border */
     overflow: hidden; /* No scroll bars */
     display: block;
+
+    border: 5px solid #ffcc00; /* Add a 5px yellow border */
+    border-radius: 10px; /* Optional: Rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Optional: Add a shadow for better visibility */
     }
 
-
-
-h1{
-    text-align: center;
-}
 
