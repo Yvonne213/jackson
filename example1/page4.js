@@ -1,33 +1,57 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const cameraFeed = document.getElementById('camera-feed');
+    const streamUrlInput = document.getElementById('stream-url');
+    const loadStreamButton = document.getElementById('load-stream');
+    const connectionStatus = document.getElementById('connection-status');
 
+    // Load last used URL from localStorage
+    const savedUrl = localStorage.getItem('droidcamUrl');
+    if (savedUrl) {
+        streamUrlInput.value = savedUrl;
+    }
 
-document.getElementById('info-form').addEventListener('submit', async function(event) {
-    event.preventDefault();
-
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-
-    try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbz4H6xfGA_dSTLDrxRLGd3K_LyQQoNbrv4a8oek5QFKBw8HoYtQEC0v_GAxu-25Y20h/exec', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (response.ok) {
-            const result = await response.json();
-            document.getElementById('response-message').textContent = 'Form submitted successfully!';
-            // Optional: Reset form
-            this.reset();
-        } else {
-            document.getElementById('response-message').textContent = 'Submission failed. Please try again.';
+    function updateStreamImage() {
+        const droidcamUrl = streamUrlInput.value.trim();
+        
+        if (droidcamUrl) {
+            // Add timestamp to prevent caching
+            const timestampedUrl = `${droidcamUrl}?t=${Date.now()}`;
+            
+            // Create a new Image to check if stream is accessible
+            const testImage = new Image();
+            testImage.onload = () => {
+                cameraFeed.src = timestampedUrl;
+                connectionStatus.textContent = 'Stream Connected ✓';
+                connectionStatus.style.color = 'green';
+            };
+            testImage.onerror = () => {
+                connectionStatus.textContent = 'Connection Failed ✗ Check URL';
+                connectionStatus.style.color = 'red';
+            };
+            testImage.src = timestampedUrl;
         }
-    } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('response-message').textContent = 'An error occurred. Please try again.';
+    }
+
+    // Event listener for load button
+    loadStreamButton.addEventListener('click', () => {
+        const url = streamUrlInput.value.trim();
+        localStorage.setItem('droidcamUrl', url);
+        updateStreamImage();
+    });
+
+    // Auto-refresh every 5 seconds
+    const refreshInterval = setInterval(updateStreamImage, 5000);
+
+    // Stop refreshing if stream URL is empty
+    streamUrlInput.addEventListener('input', () => {
+        if (!streamUrlInput.value.trim()) {
+            clearInterval(refreshInterval);
+            connectionStatus.textContent = '';
+        }
+    });
+
+    // Initial load if URL exists
+    if (streamUrlInput.value.trim()) {
+        updateStreamImage();
     }
 });
-
-

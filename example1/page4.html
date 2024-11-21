@@ -15,14 +15,19 @@
     <h1>Live Banana</h1>
 
     <div class="video-container">
-        <iframe id="camera-feed" src="http://192.168.1.76:4747/video"    frameborder="0" 
-        scrolling="no" 
-        allowfullscreen></iframe>
+        <img id="camera-feed" alt="DroidCam Stream">
+        <div>
+            <input 
+                type="text" 
+                id="stream-url" 
+                placeholder="Enter DroidCam URL (e.g., http://192.168.1.x:4747/video)"
+            >
+            <button id="load-stream">Load Stream</button>
+        </div>
+        <div id="connection-status"></div>
     </div>
-        <script src="page4.js"></script>
-
-
-
+    
+   
         <div class="form-container">
             <h2>Subscribe</h2>
             <form id="info-form">
