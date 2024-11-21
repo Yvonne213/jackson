@@ -10,17 +10,21 @@
     }
 })();
 
+document.getElementById('info-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
 
-const form = document.getElementById('info-form');
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
 
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent page reload
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-
-        console.log('Form Submitted:');
-        console.log('Name:', name);
-        console.log('Email:', email);
-
-        alert('Thank you for your submission!');
+    const response = await fetch('https://script.google.com/macros/s/AKfycbwh6rzEhd22QhfKahhiW-Qy9IiqgB40TKM8zlGnzUh6xk2vE4wJtjUf6Xh3oJbfkxVX/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email }),
     });
+
+    if (response.ok) {
+        alert('Form submitted successfully!');
+    } else {
+        alert('Error submitting the form.');
+    }
+});
