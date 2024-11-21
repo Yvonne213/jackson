@@ -16,7 +16,7 @@ document.getElementById('info-form').addEventListener('submit', async function(e
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
 
-    const response = await fetch('https://script.google.com/macros/s/AKfycbwh6rzEhd22QhfKahhiW-Qy9IiqgB40TKM8zlGnzUh6xk2vE4wJtjUf6Xh3oJbfkxVX/exec', {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbw7wZ98X9HOaiSGw7twhjlexUBRdi-scgPux5b2jRbXd_X-f2LWIxAIDf_9lT88zj5e/exec', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email }),
