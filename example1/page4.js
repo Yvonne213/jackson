@@ -1,21 +1,26 @@
 
 
 document.getElementById('info-form').addEventListener('submit', async function(event) {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault();
 
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
 
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+
     try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbxXTjoR6ccjhoLFgkETE4QvtqSCHn-YJQQV4-PGJTCQ4DJJxlMPsoQqrkrXzivIbzks/exec', {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbz4H6xfGA_dSTLDrxRLGd3K_LyQQoNbrv4a8oek5QFKBw8HoYtQEC0v_GAxu-25Y20h/exec', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email }),
+            body: formData
         });
 
         if (response.ok) {
-            const result = await response.text();
+            const result = await response.json();
             document.getElementById('response-message').textContent = 'Form submitted successfully!';
+            // Optional: Reset form
+            this.reset();
         } else {
             document.getElementById('response-message').textContent = 'Submission failed. Please try again.';
         }
