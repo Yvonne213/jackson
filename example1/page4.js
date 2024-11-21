@@ -1,100 +1,120 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const cameraFeed = document.getElementById('camera-feed');
-    const streamUrlInput = document.getElementById('stream-url');
-    const loadStreamButton = document.getElementById('load-stream');
-    const connectionDetails = document.getElementById('connection-details');
-    const diagnosticInfo = document.getElementById('diagnostic-info');
+    document.addEventListener('DOMContentLoaded', () => {
+            const cameraFeed = document.getElementById('camera-feed');
+            const streamUrlInput = document.getElementById('stream-url');
+            const loadStreamButton = document.getElementById('load-stream');
+            const debugInfo = document.getElementById('debug-info');
 
-    // Saved URL from localStorage
-    const savedUrl = localStorage.getItem('droidcamUrl');
-    if (savedUrl) {
-        streamUrlInput.value = savedUrl;
-    }
+            // Comprehensive stream URL testing array
+            const streamUrlVariants = [
+                (url) => url,
+                (url) => `${url}/video`,
+                (url) => `${url}?action=stream`,
+                (url) => `${url}?t=${Date.now()}`,
+                (url) => `${url}/mjpg/video.mjpg`,
+                (url) => `${url}/video.mjpg`
+            ];
 
-    function updateStreamImage() {
-        const droidcamUrl = streamUrlInput.value.trim();
-        
-        if (!droidcamUrl) {
-            diagnosticInfo.innerHTML = '<p>Please enter a valid URL</p>';
-            return;
-        }
-
-        // Multiple stream URL options to try
-        const streamOptions = [
-            droidcamUrl,
-            `${droidcamUrl}/video`,
-            `${droidcamUrl}?action=stream`,
-            `${droidcamUrl}?t=${Date.now()}`
-        ];
-
-        // Try different stream URL variants
-        function tryNextStreamUrl(urls) {
-            if (urls.length === 0) {
-                connectionDetails.innerHTML = 'Failed to load stream from all attempted URLs';
-                diagnosticInfo.innerHTML = `
-                    <h3>Troubleshooting Tips:</h3>
-                    <ul>
-                        <li>Ensure DroidCam app is running</li>
-                        <li>Check that your device is on the same WiFi network</li>
-                        <li>Verify the IP address is correct</li>
-                        <li>Check firewall settings</li>
-                        <li>Restart DroidCam app</li>
-                    </ul>
-                `;
-                return;
+            function logDebug(message, isError = false) {
+                const timestamp = new Date().toLocaleTimeString();
+                debugInfo.innerHTML += `[${timestamp}] ${isError ? '<span class="error">ERROR:</span> ' : ''}${message}\n`;
+                debugInfo.scrollTop = debugInfo.scrollHeight;
             }
 
-            const testUrl = urls[0];
-            
-            // Comprehensive connection test
-            const connectionTest = new Promise((resolve, reject) => {
-                const testImage = new Image();
-                testImage.onload = () => resolve(testUrl);
-                testImage.onerror = () => reject(new Error('Image load failed'));
-                testImage.src = testUrl;
-            });
+            function testStreamUrl(url) {
+                return new Promise((resolve, reject) => {
+                    const testImage = new Image();
+                    
+                    // Timeout to prevent hanging
+                    const timeoutId = setTimeout(() => {
+                        testImage.src = ''; // Cancel image load
+                        reject(new Error('Connection timeout'));
+                    }, 5000);
 
-            connectionTest
-                .then((successUrl) => {
-                    cameraFeed.src = successUrl;
-                    connectionDetails.innerHTML = `Connected using URL: ${successUrl}`;
-                    diagnosticInfo.innerHTML = `
-                        <h3>Connection Successful</h3>
-                        <p>Stream loaded from: ${successUrl}</p>
-                        <p>Image dimensions: ${cameraFeed.naturalWidth} x ${cameraFeed.naturalHeight}</p>
-                    `;
-                })
-                .catch(() => {
-                    // Try next URL
-                    tryNextStreamUrl(urls.slice(1));
+                    testImage.onload = () => {
+                        clearTimeout(timeoutId);
+                        // Check image dimensions
+                        if (testImage.naturalWidth > 0 && testImage.naturalHeight > 0) {
+                            resolve({
+                                url: testImage.src,
+                                width: testImage.naturalWidth,
+                                height: testImage.naturalHeight
+                            });
+                        } else {
+                            reject(new Error('Zero-sized image'));
+                        }
+                    };
+
+                    testImage.onerror = (error) => {
+                        clearTimeout(timeoutId);
+                        reject(new Error(`Image load failed: ${error}`));
+                    };
+
+                    testImage.src = url;
                 });
-        }
+            }
 
-        // Start trying URLs
-        tryNextStreamUrl(streamOptions);
-    }
+            async function loadStream() {
+                const baseUrl = streamUrlInput.value.trim();
+                
+                if (!baseUrl) {
+                    logDebug('Please enter a valid URL', true);
+                    return;
+                }
 
-    // Load stream button
-    loadStreamButton.addEventListener('click', () => {
-        const url = streamUrlInput.value.trim();
-        localStorage.setItem('droidcamUrl', url);
-        updateStreamImage();
-    });
+                logDebug(`Attempting to load stream from: ${baseUrl}`);
 
-    // Auto-refresh interval
-    const refreshInterval = setInterval(updateStreamImage, 5000);
+                // Clear previous image
+                cameraFeed.src = '';
 
-    // Stop refreshing if no URL
-    streamUrlInput.addEventListener('input', () => {
-        if (!streamUrlInput.value.trim()) {
-            clearInterval(refreshInterval);
-            connectionDetails.innerHTML = '';
-            diagnosticInfo.innerHTML = '';
-        }
-    });
+                // Try different URL variants
+                for (const urlModifier of streamUrlVariants) {
+                    const testUrl = urlModifier(baseUrl);
+                    
+                    try {
+                        const result = await testStreamUrl(testUrl);
+                        
+                        // Successful stream found
+                        cameraFeed.src = result.url;
+                        logDebug(`✓ Stream Loaded Successfully:
+- URL: ${result.url}
+- Dimensions: ${result.width} x ${result.height}`, false);
+                        
+                        // Start periodic refresh
+                        startPeriodicRefresh(testUrl);
+                        return;
+                    } catch (error) {
+                        logDebug(`✗ Failed with variant ${testUrl}: ${error.message}`, true);
+                    }
+                }
 
-    // Initial load if URL exists
-    if (streamUrlInput.value.trim()) {
-        updateStreamImage();
-    }
-});
+                // If all attempts fail
+                logDebug('❌ Could not load stream from any URL variant', true);
+            }
+
+            function startPeriodicRefresh(url) {
+                // Clear any existing interval
+                if (window.streamRefreshInterval) {
+                    clearInterval(window.streamRefreshInterval);
+                }
+
+                // Set up new interval
+                window.streamRefreshInterval = setInterval(() => {
+                    const timestampedUrl = `${url}?t=${Date.now()}`;
+                    cameraFeed.src = timestampedUrl;
+                }, 3000);
+            }
+
+            // Event Listeners
+            loadStreamButton.addEventListener('click', loadStream);
+
+            // Restore last used URL
+            const savedUrl = localStorage.getItem('droidcamUrl');
+            if (savedUrl) {
+                streamUrlInput.value = savedUrl;
+            }
+
+            // Save URL when changed
+            streamUrlInput.addEventListener('change', () => {
+                localStorage.setItem('droidcamUrl', streamUrlInput.value.trim());
+            });
+        });
